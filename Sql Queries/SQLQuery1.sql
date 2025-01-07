@@ -1,0 +1,23 @@
+CREATE TABLE Employees (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(100) NOT NULL,
+    Role NVARCHAR(50) NOT NULL,
+    Password NVARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Seats (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    SeatNumber NVARCHAR(10) NOT NULL,
+    IsBooked BIT NOT NULL,
+    BookedById INT NULL,
+    FOREIGN KEY (BookedById) REFERENCES Employees(Id)
+);
+
+CREATE TABLE Bookings (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    SeatId INT NOT NULL,
+    EmployeeId INT NOT NULL,
+    BookingDate DATETIME NOT NULL,
+    FOREIGN KEY (SeatId) REFERENCES Seats(Id),
+    FOREIGN KEY (EmployeeId) REFERENCES Employees(Id)
+);
