@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agdata.SeatBooking.Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agdata.SeatBooking.Console", "Agdata.SeatBooking.Console\Agdata.SeatBooking.Console.csproj", "{FB6FD0BC-1BFF-46A0-87B4-37576F687DBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agdata.SeatBooking.Data", "Agdata.SeatBooking.Data\Agdata.SeatBooking.Data.csproj", "{4BA42F5E-609B-4064-B09C-8B68A016227C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FB6FD0BC-1BFF-46A0-87B4-37576F687DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB6FD0BC-1BFF-46A0-87B4-37576F687DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB6FD0BC-1BFF-46A0-87B4-37576F687DBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BA42F5E-609B-4064-B09C-8B68A016227C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BA42F5E-609B-4064-B09C-8B68A016227C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BA42F5E-609B-4064-B09C-8B68A016227C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BA42F5E-609B-4064-B09C-8B68A016227C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

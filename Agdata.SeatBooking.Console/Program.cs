@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Agdata.SeatBooking.Application.Interfaces;
 using Agdata.SeatBooking.Application.Services;
+using Agdata.SeatBooking.Data;
 using Agdata.SeatBooking.Domain.Entities;
 
 public class Program
@@ -15,15 +13,10 @@ public class Program
 
     static void Main(string[] args)
     {
-        // Initialize data
-        _employeeService.AddEmployee(new Employee { Id = 1, Name = "Admin 1", Role = "Admin", Password = "admin" });
-        _employeeService.AddEmployee(new Employee { Id = 2, Name = "User 1", Role = "User", Password = "user" });
-        _seatService.AddSeat(new Seat { SeatNumber = "A1", IsBooked = false });
-        _seatService.AddSeat(new Seat { SeatNumber = "A2", IsBooked = false });
-        _seatService.AddSeat(new Seat { SeatNumber = "B1", IsBooked = false });
-        _bookingService = new BookingService(_seatService.GetAllSeats());
-        Console.Clear();
+        // Seed initial data
+        SeedInitialData();
 
+        Console.Clear();
         Console.WriteLine("Welcome to the Seat Booking Application!");
 
         while (true)
@@ -53,6 +46,27 @@ public class Program
         }
     }
 
+    private static void SeedInitialData()
+    {
+        // Initialize data
+        using (var context = new SeatBookingContext())
+        {
+            if (!context.Employees.Any())
+            {
+                context.Employees.Add(new Employee { Name = "Admin 1", Role = "Admin", Password = "admin" });
+                context.Employees.Add(new Employee { Name = "User  1", Role = "User ", Password = "user" });
+                context.SaveChanges();
+            }
+
+            if (!context.Seats.Any())
+            {
+                context.Seats.Add(new Seat { SeatNumber = "A1", IsBooked = false });
+                context.Seats.Add(new Seat { SeatNumber = "A2", IsBooked = false });
+                context.Seats.Add(new Seat { SeatNumber = "B1", IsBooked = false });
+                context.SaveChanges();
+            }
+        }
+    }
     private static void AdminMenu(int employeeId)
     {
         while (true)

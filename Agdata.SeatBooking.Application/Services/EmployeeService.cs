@@ -1,31 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Agdata.SeatBooking.Application.Interfaces;
+﻿using Agdata.SeatBooking.Application.Interfaces;
+using Agdata.SeatBooking.Data;
 using Agdata.SeatBooking.Domain.Entities;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
-namespace Agdata.SeatBooking.Application.Services
+public class EmployeeService : IEmployeeService
 {
-    public class EmployeeService : IEmployeeService
+    public void AddEmployee(Employee employee)
     {
-        private readonly List<Employee> _employees = new List<Employee>();
-        private static int _nextEmployeeId = 1; // Static variable for auto-incrementing EmployeeId
-
-        public void AddEmployee(Employee employee)
+        using (var context = new SeatBookingContext())
         {
-            employee.Id = _nextEmployeeId++; // Assign and increment EmployeeId
-            _employees.Add(employee);
+            context.Employees.Add(employee);
+            context.SaveChanges();
             Console.WriteLine($"Employee {employee.Name} added with ID {employee.Id}.");
         }
+    }
 
-        public void RemoveEmployee(int employeeId)
+    public void RemoveEmployee(int employeeId)
+    {
+        using (var context = new SeatBookingContext())
         {
-            var employee = _employees.FirstOrDefault(e => e.Id == employeeId);
+            var employee = context.Employees.Find(employeeId);
             if (employee != null)
             {
-                _employees.Remove(employee);
+                context.Employees.Remove(employee);
+                context.SaveChanges();
                 Console.WriteLine($"Employee with ID {employeeId} removed.");
             }
             else
@@ -33,20 +33,29 @@ namespace Agdata.SeatBooking.Application.Services
                 Console.WriteLine($"Error: Employee with ID {employeeId} does not exist.");
             }
         }
+    }
 
-        public Employee GetEmployeeById(int employeeId)
+    public Employee GetEmployeeById(int employeeId)
+    {
+        using (var context = new SeatBookingContext())
         {
-            return _employees.FirstOrDefault(e => e.Id == employeeId);
+            return context.Employees.Find(employeeId);
         }
+    }
 
-        public List<Employee> GetAllEmployees()
+    public List<Employee> GetAllEmployees()
+    {
+        using (var context = new SeatBookingContext())
         {
-            return _employees;
+            return context.Employees.ToList();
         }
+    }
 
-        public Employee Authenticate(string name, string password)
+    public Employee Authenticate(string name, string password)
+    {
+        using (var context = new SeatBookingContext())
         {
-            return _employees.FirstOrDefault(e => e.Name == name && e.Password == password);
+            return context.Employees.FirstOrDefault(e => e.Name == name && e.Password == password);
         }
     }
 }
